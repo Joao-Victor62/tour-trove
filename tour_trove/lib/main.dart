@@ -85,18 +85,24 @@ class _MyHomePageState extends State<MyHomePage>
           tabIndex = v;
         },
         children: [
-          Container( //pagina de cadastro de museus e exposicoes 
+          Container( 
               width: double.infinity,
               height: double.infinity,
-              color: Colors.red),
-          Container( //pagina principal 
+              color: Colors.red,
+              child: Center(child: Text("Página cadastro de museus e exposições")),
+          ),
+          Container( 
               width: double.infinity,
               height: double.infinity,
-              color: Colors.green),
-          Container( //pagina do usuario 
+              color: Colors.green,
+              child: Center(child: Text("Página principal")),
+          ),
+          Container( 
               width: double.infinity,
               height: double.infinity,
-              color: Colors.blue),
+              color: Colors.blue,
+              child: Center(child: Text("Página do usuario")),
+          ),
         ],
       ),
     );
