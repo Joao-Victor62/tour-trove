@@ -57,9 +57,9 @@ class _MyHomePageState extends State<MyHomePage>
           Icon(Icons.favorite, color: Colors.deepPurple),
         ],
         inactiveIcons: const [
-          Text("My"),
+          Text("Museus"),
           Text("Home"),
-          Text("Like"),
+          Text("Usuario"),
         ],
         color: Colors.white,
         height: 60,
