@@ -18,7 +18,12 @@ const String kPredictionKey = 'PREDICTION_KEY_AQUI';
 
 const String kDescricaoApiBase = 'http://localhost:6790/exposicao/nome?nome=';
 
-
+//Paleta de cores
+class AppColors {
+  static const Color text       = Color(0xFFF4F5FC);
+  static const Color buttonBg   = Color(0xFF8EBBFF);
+  static const Color background = Color(0xFF24293E);
+}
 
 
 
@@ -217,7 +222,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-            color: Colors.green,
+            color: const Color(0xFF24293E),
             alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -263,8 +268,8 @@ class _HomePageState extends State<HomePage> {
                 onPressed: identificar_expsoicao,
                 width: 140,  // tamanho controlado
                 height: 36,  // realmente menor
-                color: Colors.blue,
-                textColor: Colors.white,
+                color: const Color(0xFF8EBBFF),
+                textColor: const Color(0xFFF4F5FC),
                 fontSize: 14,
               ),
             ),
@@ -306,7 +311,7 @@ class _ResultadoExposicao extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: Color(0xFFF4F5FC),
             ),
           ),
           const SizedBox(height: 12),
@@ -315,7 +320,7 @@ class _ResultadoExposicao extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 16,
-              color: Colors.white,
+              color: Color(0xFFF4F5FC),
               height: 1.3,
             ),
           ),
@@ -385,46 +390,80 @@ class _WebCameraSheetState extends State<_WebCameraSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initFuture,
-      builder: (context, snap) {
-        if (snap.connectionState != ConnectionState.done) {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(24.0),
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-        if (_controller == null || !_controller!.value.isInitialized) {
-          return const Center(child: Text('Não foi possível inicializar a câmera.'));
-        }
-
-        return Column(
-          children: [
-            Expanded(child: CameraPreview(_controller!)),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FilledButton(
-                    onPressed: _capture,
-                    child: const Text('Capturar'),
-                  ),
-                  const SizedBox(width: 12),
-                  OutlinedButton(
-                    onPressed: () => Navigator.of(context).pop<XFile>(null),
-                    child: const Text('Fechar'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
+    final filledStyle = FilledButton.styleFrom(
+      backgroundColor: AppColors.buttonBg,
+      foregroundColor: AppColors.text, // cor do texto/ícone do botão
     );
+
+    final outlinedStyle = OutlinedButton.styleFrom(
+      backgroundColor: AppColors.buttonBg, // botão “ao redor do texto”
+      foregroundColor: AppColors.text,     // cor do texto
+      side: const BorderSide(color: Color(0xFF8EBBFF)),
+    );
+
+    return Container(
+      color: AppColors.background, // fundo geral
+      child: SafeArea(
+        child: FutureBuilder(
+          future: _initFuture,
+          builder: (context, snap) {
+            if (snap.connectionState != ConnectionState.done) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24.0),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.buttonBg),
+                  ),
+                ),
+              );
+            }
+            if (_controller == null || !_controller!.value.isInitialized) {
+              return const Center(
+                child: Text(
+                  'Não foi possível inicializar a câmera.',
+                  style: TextStyle(color: AppColors.text),
+                ),
+              );
+            }
+
+            return Column(
+              children: [
+                Expanded(
+                  child: CameraPreview(_controller!),
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FilledButton(
+                        style: filledStyle,
+                        onPressed: _capture,
+                        child: const Text(
+                          'Capturar',
+                          style: TextStyle(color: AppColors.text),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      OutlinedButton(
+                        style: outlinedStyle,
+                        onPressed: () => Navigator.of(context).pop<XFile>(null),
+                        child: const Text(
+                          'Fechar',
+                          style: TextStyle(color: AppColors.text),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+
   }
 }
 
@@ -498,7 +537,7 @@ class _BotaoCircularPerguntarState extends State<_BotaoCircularPerguntar>
               height: d,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: listening ? Colors.redAccent : Colors.orange,
+                color: listening ? const Color.fromARGB(255, 186, 12, 12) : const Color(0xFF8EBBFF),
                 boxShadow: [
                   BoxShadow(
                     blurRadius: listening ? 18 : 8,
@@ -519,7 +558,7 @@ class _BotaoCircularPerguntarState extends State<_BotaoCircularPerguntar>
                     ),
                   Icon(
                     listening ? Icons.mic : Icons.mic_none,
-                    color: Colors.white,
+                    color: const Color(0xFFF4F5FC),
                     size: iconSize,
                   ),
                 ],
@@ -531,7 +570,7 @@ class _BotaoCircularPerguntarState extends State<_BotaoCircularPerguntar>
         Text(
           widget.label, // “Faça uma pergunta” ou “Escutando”
           style: const TextStyle(
-            color: Colors.white,
+            color: Color(0xFFF4F5FC),
             fontWeight: FontWeight.w600,
           ),
         ),

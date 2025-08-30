@@ -6,7 +6,7 @@ class MuseumsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      color: const Color(0xFF24293E),
       alignment: Alignment.center,
       child: const Text("Página cadastro de museus e exposições"),
     );

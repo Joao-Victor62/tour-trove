@@ -4,6 +4,11 @@ import '../pages/museums_page.dart';
 import '../pages/home_page.dart';
 import '../pages/profile_page.dart';
 
+// Centraliza cores da aplicação
+class AppColors {
+  static const Color textInactive = Color(0xFFF4F5FC);
+}
+
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
 
@@ -39,35 +44,43 @@ class _HomeShellState extends State<HomeShell>
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: CircleNavBar(
-  activeIcons: const [
-    Icon(Icons.museum, color: Colors.deepPurple),
-    Icon(Icons.home, color: Colors.deepPurple),
-    Icon(Icons.person, color: Colors.deepPurple),
-  ],
-  inactiveIcons: const [
-    Text("Museus", style: TextStyle(fontSize: 15)), // opcional: texto menor
-    Text("Home", style: TextStyle(fontSize: 15)),
-    Text("Usuário", style: TextStyle(fontSize: 15)),
-  ],
-  color: Colors.white,
-  height: 50,           // antes 60
-  circleWidth: 50,      // antes 60
-  activeIndex: tabIndex,
-  onTap: (index) {
-    tabIndex = index;
-    _pageController.jumpToPage(tabIndex);
-  },
-  padding: const EdgeInsets.only(left: 12, right: 12, bottom: 14), // ajusta espaçamento
-  cornerRadius: const BorderRadius.only(
-    topLeft: Radius.circular(8),
-    topRight: Radius.circular(8),
-    bottomRight: Radius.circular(18),
-    bottomLeft: Radius.circular(18),
-  ),
-  shadowColor: Colors.deepPurple,
-  elevation: 6, // reduz a sombra também, se quiser
-),
-
+        activeIcons: const [
+          Icon(Icons.museum, color: Color(0xFFF4F5FC)),
+          Icon(Icons.home, color: Color(0xFFF4F5FC)),
+          Icon(Icons.person, color: Color(0xFFF4F5FC)),
+        ],
+        inactiveIcons: const [
+          Text(
+            "Museus",
+            style: TextStyle(fontSize: 15, color: AppColors.textInactive),
+          ),
+          Text(
+            "Home",
+            style: TextStyle(fontSize: 15, color: AppColors.textInactive),
+          ),
+          Text(
+            "Usuário",
+            style: TextStyle(fontSize: 15, color: AppColors.textInactive),
+          ),
+        ],
+        color: const Color(0xFF8EBBFF),
+        height: 50,           
+        circleWidth: 50,     
+        activeIndex: tabIndex,
+        onTap: (index) {
+          tabIndex = index;
+          _pageController.jumpToPage(tabIndex);
+        },
+        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 14),
+        cornerRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
+          bottomRight: Radius.circular(18),
+          bottomLeft: Radius.circular(18),
+        ),
+        shadowColor: Colors.deepPurple,
+        elevation: 6,
+      ),
       body: PageView(
         controller: _pageController,
         onPageChanged: (v) => tabIndex = v,
