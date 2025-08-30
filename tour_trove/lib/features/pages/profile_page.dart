@@ -6,7 +6,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: const Color(0xFF24293E),
       alignment: Alignment.center,
       child: const Text("Página do usuário"),
     );
